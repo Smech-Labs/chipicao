@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chipicao — Visual Ethereum DApp Builder</title>
+  <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ── Header ────────────────────────────────────────────────────────────── -->
+  <header>
+    <div class="logo">
+      <span class="logo-icon">🍫</span>
+      <span class="logo-name">Chipicao</span>
+      <span class="logo-sep">|</span>
+      <span class="logo-sub">Ethereum DApp Builder</span>
+    </div>
+    <div class="header-center">
+      <input id="projectName" class="project-name-input" value="My DApp Project" spellcheck="false">
+    </div>
+    <div class="header-actions">
+      <button class="btn-ghost" onclick="importWorkspace()" title="Import project XML">⬆ Import</button>
+      <button class="btn-ghost" onclick="exportWorkspace()" title="Export project XML">⬇ Save</button>
+      <div class="divider"></div>
+      <button class="btn-ghost" onclick="exportSolidity()" title="Download .sol file">📄 .sol</button>
+      <button class="btn-ghost" onclick="exportFrontend()" title="Download DApp HTML">🌐 DApp</button>
+      <div class="divider"></div>
+      <button class="btn-compile" id="compileBtn" onclick="compileContract()">
+        <span class="compile-icon">⚙</span> Compile
+      </button>
+    </div>
+  </header>
+
+  <!-- ── Main area: Scratch-style editor ───────────────────────────────────── -->
+  <div class="editor-wrap">
+
+    <!-- Category sidebar (left column) -->
+    <aside class="category-sidebar-wrap">
+      <!-- Search button at top -->
+      <div class="search-slot">
+        <button class="search-icon-btn" id="searchToggleBtn" onclick="toggleSearch()" title="Search blocks (/)">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.6"/>
+            <line x1="10" y1="10" x2="14" y2="14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Search overlay panel -->
+      <div class="search-overlay" id="searchOverlay" style="display:none">
+        <div class="search-box-wrap">
+          <svg class="search-box-icon" width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.6"/>
+            <line x1="10" y1="10" x2="14" y2="14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <input id="blockSearch" class="search-box-input" type="text"
+            placeholder="Search blocks…" autocomplete="off" spellcheck="false">
+          <button class="search-clear-btn" id="searchClearBtn" onclick="clearSearch()" style="display:none">✕</button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+
+      <div class="category-sidebar" id="categorySidebar">
+        <!-- Injected by JS -->
+      </div>
+    </aside>
+
+    <!-- Blockly canvas (takes remaining space) -->
+    <div class="canvas-wrap">
+      <div id="blocklyDiv"></div>
+    </div>
+
+  </div>
+
+  <!-- ── Bottom output panel ───────────────────────────────────────────────── -->
+  <div class="output-panel">
+    <div class="output-tabs">
+      <button class="tab-btn active" data-tab="solidity" onclick="showTab(this,'solidity')">
+        📜 Solidity
+      </button>
+      <button class="tab-btn" data-tab="frontend" onclick="showTab(this,'frontend')">
+        🌐 Frontend HTML
+      </button>
+      <button class="tab-btn" data-tab="preview" onclick="showTab(this,'preview')">
+        👁 Preview
+      </button>
+      <button class="tab-btn" data-tab="compile" onclick="showTab(this,'compile')">
+        ⚙ Compile Output
+      </button>
+      <div class="tab-spacer"></div>
+      <div class="panel-resize-hint">drag ↕ to resize</div>
+    </div>
+
+    <div class="output-body">
+      <div id="tab-solidity" class="tab-content active">
+        <pre id="solidityOut" class="code-out">// Build something above to see Solidity output</pre>
+      </div>
+      <div id="tab-frontend" class="tab-content">
+        <pre id="frontendOut" class="code-out">&lt;!-- Build a DApp Page block above to see HTML output --&gt;</pre>
+      </div>
+      <div id="tab-preview" class="tab-content">
+        <iframe id="previewFrame" sandbox="allow-scripts allow-same-origin" title="DApp preview"></iframe>
+      </div>
+      <div id="tab-compile" class="tab-content">
+        <div class="compile-banner">
+          <span>Run the real <strong>solc</strong> compiler against your Solidity code and get ABI + bytecode.</span>
+          <button class="btn-run-compile" onclick="compileContract()">⚙ Compile Now</button>
+        </div>
+        <pre id="compileOut" class="code-out compile-out"></pre>
+      </div>
+    </div>
+  </div>
+
+  <script src="chipicao.js"></script>
+</body>
+</html>

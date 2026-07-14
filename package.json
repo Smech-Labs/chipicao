@@ -1,0 +1,14 @@
+{
+  "name": "chipicao",
+  "version": "0.1.0",
+  "description": "Scratch-style visual builder for Ethereum DApps",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run src/server.js",
+    "start": "bun run src/server.js"
+  },
+  "dependencies": {
+    "solc": "^0.8.28",
+    "jszip": "^3.10.1"
+  }
+}
