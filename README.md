@@ -4,7 +4,7 @@
 
 ## Live Demo
 
-**[chipicao.smech.dev](https://stefanmariusionut-ops.github.io/chipicao)** ← GitHub Pages
+**[chipicao.smech.dev](https://smech-labs.github.io/chipicao)** ← GitHub Pages
 
 ## What it does
 
@@ -34,7 +34,7 @@
 Requires [Bun](https://bun.sh).
 
 ```bash
-git clone https://github.com/stefanmariusionut-ops/chipicao
+git clone https://github.com/Smech-Labs/chipicao
 cd chipicao
 bun install
 bun dev
